@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Expense Viewer</title>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
+
 <body>
 
     <h1>Expense List</h1>
@@ -14,13 +16,12 @@
     <button id="create-expenses-button">Create Expenses</button>
 
     <script>
-        // מבצע קריאה GET ל-API ומציג את התשובה ב-div
         function fetchExpenses() {
             axios.get('https://cloud-database-ler4.onrender.com/expenses/')
                 .then(function (response) {
                     const expenses = response.data.expenses;
                     let expenseHtml = '<ul>';
-                    expenses.forEach(function(expense) {
+                    expenses.forEach(function (expense) {
                         expenseHtml += `<li>${expense.description}: $${expense.amount}</li>`;
                     });
                     expenseHtml += '</ul>';
@@ -32,12 +33,11 @@
                 });
         }
 
-        // מבצע קריאה POST ליצירת הוצאות
         function createExpenses() {
             axios.post('https://cloud-database-ler4.onrender.com/create_expenses/')
                 .then(function (response) {
                     alert('Expenses created!');
-                    fetchExpenses(); // עדכון הרשימה אחרי יצירת הוצאות
+                    fetchExpenses();
                 })
                 .catch(function (error) {
                     alert('Error creating expenses');
@@ -45,12 +45,28 @@
                 });
         }
 
-        // מאזין לכפתור יצירת הוצאות
+        function createExpenses() {
+            axios.delete('https://cloud-database-ler4.onrender.com/reset/')
+                .then(response => {
+                    console.log(response.data)
+
+                    alert('Expenses delete!');
+                    fetchExpenses();
+                })
+                .catch(error => {
+                    console.error(error)
+                    alert('Error delete expenses');
+
+                });
+        }
+
+
+
         document.getElementById('create-expenses-button').addEventListener('click', createExpenses);
 
-        // טוען את ההוצאות בהתחלה
         fetchExpenses();
     </script>
 
 </body>
+
 </html>
