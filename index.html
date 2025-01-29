@@ -13,7 +13,7 @@
     <h1>Expense List</h1>
     <div id="expense-list"></div>
 
-    <button id="create-expenses-button">Create Expenses</button>
+    <button id="create-expenses-button">Create Example Expenses</button>
     <button id="delete-expenses-button">Delete All Expenses</button>
 
     <script>
@@ -35,7 +35,7 @@
         }
 
         function createExpenses() {
-            axios.post('https://cloud-database-ler4.onrender.com/create_expenses/')
+            axios.post('https://cloud-database-ler4.onrender.com/create_example_expenses/')
                 .then(response => {
                     alert('Expenses created!');
                     fetchExpenses();
